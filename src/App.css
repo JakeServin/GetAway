@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+:root {
+  --color-main: #7D7098;
+  --color-secondary: ;
+}
+
+.bg-main {
+  background-color: var(--color-main);
+}
