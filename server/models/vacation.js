@@ -6,7 +6,7 @@ const VacationSchema = new mongoose.Schema({
 		required: true,
 	},
 	createdBy: {
-		type: Number,
+		type: String,
 		required: true,
 	},
 	startDate: {

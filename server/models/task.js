@@ -13,6 +13,10 @@ const TaskSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	createdBy: {
+		type: String,
+		required: true,
+	},
 });
 
 const taskModel = mongoose.model("Task", TaskSchema);
