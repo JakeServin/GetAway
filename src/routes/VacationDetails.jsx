@@ -1,16 +1,22 @@
 import axios from 'axios';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom';
 
-const VacationDetails = (props) => {
+const VacationDetails = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const vacationId = searchParams.get("id");
-  const getData = async () => {
-    const vacationQuery = await axios.get('/vacations').then((res)=> res.data)
-    console.log(vacationQuery);
-    return 
-  }
-  const vacations = getData();
+  let vacations;
+  useEffect(() => {
+    const getData = async () => {
+		const vacationQuery = await axios
+			.get("/vacations")
+			.then((res) => res.data);
+		  vacations = vacationQuery;
+      const myVacation = vacations.find((vacation) => vacation._id == vacationId);
+      console.log(myVacation);
+	  };
+	  getData();
+  }, [])
   
   return (
     <div>VacationDetails</div>
