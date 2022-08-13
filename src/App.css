@@ -44,3 +44,16 @@
 .bg-main {
   background-color: var(--color-main);
 }
+
+.hero {
+  height: 100vh;
+  background-image: url('../public/images/wallpaperflare.com_wallpaper.jpg');
+  box-shadow: inset 0 0 0 1000px rgba(0,0,0,.255); 
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
