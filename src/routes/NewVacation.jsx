@@ -34,8 +34,11 @@ const NewVacation = () => {
 		})
 		.catch(function (error) {
       console.log(error);
-    });
-    navigate(`/vacations/?id=${id}`)
+		});
+	  if (!id) {
+			return
+		}
+		navigate(`/vacations/?id=${id}`)
 
   }
 
