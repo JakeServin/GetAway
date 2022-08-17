@@ -26,13 +26,14 @@ const NewVacation = () => {
       endDate: endDate,
       location: destination
     };
-    const id = await axios.post("/add_vacation", newVacation)
+    const id = await axios
+		.post("http://localhost:5500/add_vacation", newVacation)
 		.then(function (response) {
-      console.log(response.data);
-      return response.data._id;
+			console.log(response.data);
+			return response.data._id;
 		})
 		.catch(function (error) {
-      console.log(error);
+			console.log(error);
 		});
 	  if (!id) {
 			return
@@ -57,6 +58,7 @@ const NewVacation = () => {
 								<input
 									value={vacationName}
 									class="form-control"
+									placeholder='Trip Name'
 									onChange={(e) =>
 										setVacationName(e.target.value)
 									}
@@ -67,6 +69,7 @@ const NewVacation = () => {
 								<input
 									value={destination}
 									class="form-control"
+									placeholder='Destination'
 									onChange={(e) =>
 										setDestination(e.target.value)
 									}

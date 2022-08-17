@@ -88,6 +88,7 @@ const VacationDetails = (props) => {
 	return !vacation.location ? (
 		<h1>Trip not found</h1>
 	) : (
+			
 		<div className="container-fluid detailsWrapper">
 			<div className="row d-flex align-items-center">
 				<div className="p-5 col-12 col-md-6">
@@ -133,6 +134,7 @@ const VacationDetails = (props) => {
 				</div>
 			</div>
 		</div>
+		
 	);
 };
 

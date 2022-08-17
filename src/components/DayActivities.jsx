@@ -68,7 +68,7 @@ const DayActivities = ({ day, vacationId, tasks }) => {
 
   return (
 		<div className="my-3 mx-3">
-			<p>
+			<p style={{marginBottom: 0}}>
 				<a
 					class="btn btn-primary col-12"
 					data-bs-toggle={`collapse`}
