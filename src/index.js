@@ -7,17 +7,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import VacationDetails from './routes/VacationDetails';
+import { Provider } from 'react-redux';
+import store from './store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<BrowserRouter>
-        <Navbar/>
-        <Routes>
-			<Route path="/" element={<HomePage />} />
-			<Route path="newvacation" element={<NewVacation />} />
-			<Route path="vacations/" element={<VacationDetails />} />
-
-        </Routes>
-        <Footer/>
-	</BrowserRouter>
+	<Provider store={store}>
+		<BrowserRouter>
+			<Navbar />
+			<Routes>
+				<Route path="/" element={<HomePage />} />
+				<Route path="newvacation" element={<NewVacation />} />
+				<Route path="vacations/" element={<VacationDetails />} />
+			</Routes>
+			<Footer />
+		</BrowserRouter>
+	</Provider>
 );

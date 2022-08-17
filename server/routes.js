@@ -60,7 +60,7 @@ app.post("/add_task", async (request, response) => {
 });
 
 app.get("/tasks", async (request, response) => {
-	const tasks = await taskModel.find({});
+	const tasks = await taskModel.find({ tripId: `${request.query.id}` });
 
 	try {
 		response.send(tasks);

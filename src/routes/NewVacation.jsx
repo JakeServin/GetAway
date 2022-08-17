@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ReactDatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from 'react';
@@ -21,7 +21,7 @@ const NewVacation = () => {
     }
     
     const newVacation = {
-      name: destination,
+      name: vacationName,
       createdBy: "62f7c3349fd3d3fc00702f29",
       startDate: startDate,
       endDate: endDate,

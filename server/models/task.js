@@ -1,22 +1,18 @@
 const mongoose = require("mongoose");
 
 const TaskSchema = new mongoose.Schema({
-	email: {
+	name: {
 		type: String,
 		required: true,
 	},
-	userName: {
-		type: String,
+	dayIndex: {
+		type: Number,
 		required: true,
 	},
-	password: {
+	tripId: {
 		type: String,
-		required: true,
-	},
-	createdBy: {
-		type: String,
-		required: true,
-	},
+		required: true
+	}
 });
 
 const taskModel = mongoose.model("Task", TaskSchema);
