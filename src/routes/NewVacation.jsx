@@ -16,7 +16,6 @@ const NewVacation = () => {
     e.preventDefault();
     
     if (!vacationName || !destination) {
-      console.log("GIELDS EMPTY")
       return;
     }
     

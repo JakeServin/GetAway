@@ -116,9 +116,9 @@ const VacationDetails = (props) => {
 					/>
 				</div>
 				<div>
-					<h3 className="p-3">Your Itinerary:</h3>
+					<h3 className="pt-3 px-3">Your Itinerary:</h3>
 				</div>
-				<div>
+				<div className="pb-3">
 					{daysArr.map((day) => {
 						return (
 							<DayActivities
