@@ -74,8 +74,7 @@ const NewVacation = () => {
 								/>
 								<label for="floatingPassword">
 									Destination
-                </label>
-  
+								</label>
 							</div>
 							<div className="d-flex justify-content-center align-items-center mb-3">
 								<div className="me-2 text-white">Start: </div>

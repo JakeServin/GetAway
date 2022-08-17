@@ -1,11 +1,15 @@
 import { set } from 'mongoose';
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react';
 import axios from 'axios';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import {AiOutlineDelete} from 'react-icons/ai'
 
 const DayActivities = ({ day, vacationId, tasks }) => {
   const [inputText, setInputText] = useState("");
+  const [myTasks, setMyTasks] = useState([]);
+
+  // Convert date to date object
   var months = [
 		"January",
 		"February",
@@ -34,9 +38,10 @@ const DayActivities = ({ day, vacationId, tasks }) => {
 		month: months[day.date.getMonth()],
 		day: days[day.date.getDay()],
   };
-  console.log(tasks);
 
   const handleSubmit = () => {
+    console.log("test")
+    if (inputText.length < 1) return
     // Set up task object
     const newTask = {
       name: inputText,
@@ -45,9 +50,21 @@ const DayActivities = ({ day, vacationId, tasks }) => {
     }
     // Post task to database
     axios.post('/add_task', newTask)
+    setMyTasks([...myTasks, newTask])
     // Clear input field
     setInputText('');
   }
+
+  const handleDelete = (id) => {
+    console.log(id)
+    axios.get(`/delete_task?id=${id}`)
+    setMyTasks(myTasks.filter((task) => task._id != id));
+  }
+
+  useEffect(() => {
+    setMyTasks(tasks)
+  }, [tasks])
+
 
   return (
 		<div className="my-3 mx-3">
@@ -65,19 +82,29 @@ const DayActivities = ({ day, vacationId, tasks }) => {
 			</p>
 			<div class="collapse multi-collapse" id={`collapse${day.dayIndex}`}>
 				<div class="card card-body">
-					{tasks.length < 1 ? (
+					{myTasks.length < 1 ? (
 						<span className="text-secondary">
 							Nothing planned yet!
 						</span>
-          ) : (
-              tasks.map((task) => (<li>{task.name}</li>))
-          )}
+					) : (
+						myTasks.map((task, i) => (
+							<div className="d-flex justify-content-between col-12">
+								<li key={i}>{task.name}</li>
+                <a role="button"
+                  onClick={()=> handleDelete(task._id)}
+                >
+									<AiOutlineDelete
+									/>
+								</a>
+							</div>
+						))
+					)}
 				</div>
 				<div class="input-group mb-3">
 					<input
 						type="text"
 						class="form-control form-control-custom"
-						placeholder="Enter a new task"
+						placeholder="Add something exciting!"
 						value={inputText}
 						onChange={(e) => setInputText(e.target.value)}
 					/>
@@ -86,7 +113,7 @@ const DayActivities = ({ day, vacationId, tasks }) => {
 						type="button"
 						onClick={handleSubmit}
 					>
-						Add Task
+						Add
 					</button>
 				</div>
 			</div>

@@ -13,7 +13,7 @@ import store from './store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 	<Provider store={store}>
-		<BrowserRouter>
+		<BrowserRouter className="window">
 			<Navbar />
 			<Routes>
 				<Route path="/" element={<HomePage />} />

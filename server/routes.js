@@ -60,7 +60,17 @@ app.post("/add_task", async (request, response) => {
 });
 
 app.get("/tasks", async (request, response) => {
+	if (!request.query.id) return
 	const tasks = await taskModel.find({ tripId: `${request.query.id}` });
+
+	try {
+		response.send(tasks);
+	} catch (error) {
+		response.status(500).send(error);
+	}
+});
+app.get("/delete_task", async (request, response) => {
+	const tasks = await taskModel.remove({_id: `${request.query.id}`})
 
 	try {
 		response.send(tasks);
