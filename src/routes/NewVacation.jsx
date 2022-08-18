@@ -54,27 +54,29 @@ const NewVacation = () => {
 					</div>
 					<div className=" col-9 col-sm ">
 						<form>
-							<div class="form-floating mb-3">
+							<div className="form-floating mb-3">
 								<input
 									value={vacationName}
-									class="form-control"
-									placeholder='Trip Name'
+									className="form-control"
+									placeholder="Trip Name"
 									onChange={(e) =>
 										setVacationName(e.target.value)
 									}
 								/>
-								<label for="floatingInput">Vacation Name</label>
+								<label htmlFor="floatingInput">
+									Vacation Name
+								</label>
 							</div>
-							<div class="form-floating mb-3">
+							<div className="form-floating mb-3">
 								<input
 									value={destination}
-									class="form-control"
-									placeholder='Destination'
+									className="form-control"
+									placeholder="Destination"
 									onChange={(e) =>
 										setDestination(e.target.value)
 									}
 								/>
-								<label for="floatingPassword">
+								<label htmlFor="floatingPassword">
 									Destination
 								</label>
 							</div>
@@ -82,7 +84,7 @@ const NewVacation = () => {
 								<div className="me-2 text-white">Start: </div>
 								<ReactDatePicker
 									selected={startDate}
-									minDate={startDate}
+									minDate={new Date()}
 									onChange={(date) => setStartDate(date)}
 								/>
 							</div>
@@ -94,13 +96,12 @@ const NewVacation = () => {
 									onChange={(date) => setEndDate(date)}
 								/>
 							</div>
-							<Link to="vacationdetails">
-								<a
-									className="btn btn-primary"
-									onClick={handleSubmit}
-								>
-									Let's Go
-								</a>
+							<Link
+								to="vacationdetails"
+								className="btn btn-primary"
+								onClick={handleSubmit}
+							>
+								Let's Go
 							</Link>
 						</form>
 					</div>

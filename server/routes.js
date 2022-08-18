@@ -14,7 +14,6 @@ app.post("/login_user", (req, res, next) => {
 		else {
 			req.logIn(user, (err) => {
 				if (err) throw err;
-				res.send("Successfully Authenticated");
 				console.log(req.user);
 			});
 		}
@@ -47,6 +46,13 @@ app.get("/user", async (request, response) => {
 		response.status(500).send(error);
 	}
 });
+app.get("/current_user", (req, res) => {
+	console.log(req.user)
+	res.send(req.user);
+});
+
+
+app.get("/logout")
 
 // Vacation routes
 app.post("/add_vacation", async (request, response) => {

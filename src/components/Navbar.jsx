@@ -49,17 +49,17 @@ const Navbar = () => {
 					<form
 						action="/vacations/"
 						method="GET"
-						class="d-flex ms-auto"
+						className="d-flex ms-auto"
 					>
 						<input
-							class="form-control me-2"
+							className="form-control me-2"
 							type="search"
 							placeholder="Search by Trip ID"
 							value={formInput}
 							onChange={(e) => setFormInput(e.target.value)}
 						/>
 						<input type="hidden" name="id" value={`${formInput}`} />
-						<button class="btn bt btn-outline-light" type="submit">
+						<button className="btn bt btn-outline-light" type="submit">
 							Search
 						</button>
 				  </form>
