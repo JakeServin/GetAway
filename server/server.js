@@ -21,11 +21,11 @@ app.use(cors({
 
 app.use(session({
 	secret: "secretcode",
-	resave: true.resave,
+	resave: true,
 	saveUninitialized: true
 }));
 
-app.use(cookieParser("sercretcode"))
+app.use(cookieParser("secretcode"))
 app.use(passport.initialize());
 app.use(passport.session());
 require('./passportConfig')(passport);

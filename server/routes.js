@@ -5,20 +5,24 @@ const taskModel = require('./models/task')
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
 const app = express();
-
+const ObjectId = require('mongodb').ObjectId
 // User routes
 app.post("/login_user", (req, res, next) => {
-	passport.authenticate("local", (err, user, info) => {
-		if (err) throw err;
-		if (!user) res.send("No User Exists");
-		else {
-			req.logIn(user, (err) => {
-				if (err) throw err;
-				console.log(req.user);
-			});
+	passport.authenticate(
+		"local",
+		(err, user, info) => {
+			if (err) throw err;
+			if (!user) res.send("Invalid username or password")
+			else {
+				req.login(user, (err) => {
+					if (err) throw err;
+					res.send(req.user)
+				});
+			}
 		}
-	})(req, res, next);
+	)(req, res, next);
 });
+
 app.post('/register_user', (req, res) => {
 	console.log(req.body.username)
 	userModel.findOne({ userName: req.body.username }, async (err, doc) => {
@@ -37,22 +41,32 @@ app.post('/register_user', (req, res) => {
 	})
 })
 
-app.get("/user", async (request, response) => {
-	const users = await userModel.find({});
+app.get("/get_user", async (req, res) => {
+
+	console.log(req.query.id)
+	const user = await userModel.findOne({_id: ObjectId(req.query.id)});
 
 	try {
-		response.send(users);
+		res.send(user.userName);
 	} catch (error) {
-		response.status(500).send(error);
+		res.status(500).send(error);
 	}
 });
+
 app.get("/current_user", (req, res) => {
 	console.log(req.user)
 	res.send(req.user);
 });
 
 
-app.get("/logout")
+app.get("/logout", (req, res) => {
+	req.logout(function (err) {
+		if (err) {
+			return next(err);
+		}
+		res.redirect("/");
+	});
+})
 
 // Vacation routes
 app.post("/add_vacation", async (request, response) => {

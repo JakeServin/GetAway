@@ -4,13 +4,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
-const NewVacation = () => {
+const NewVacation = (props) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [vacationName, setVacationName] = useState('');
   const [destination, setDestination] = useState('');
-  const navigate = useNavigate();
+	const navigate = useNavigate();
+  const { user } = props
+  console.log(user)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +24,7 @@ const NewVacation = () => {
     
     const newVacation = {
       name: vacationName,
-      createdBy: "62f7c3349fd3d3fc00702f29",
+      createdBy: user._id,
       startDate: startDate,
       endDate: endDate,
       location: destination
@@ -111,4 +114,12 @@ const NewVacation = () => {
   );
 }
 
-export default NewVacation
+const mapStateToProps = (state) => {
+	const user = state.userReducer;
+	return {
+		user,
+	};
+};
+
+
+export default connect(mapStateToProps, null)(NewVacation);

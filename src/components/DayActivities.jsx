@@ -122,7 +122,7 @@ const DayActivities = ({ day, vacationId, tasks }) => {
 }
 
 const mapStateToProps = (state) => {
-	const vacationId = state._id; 
+	const vacationId = state.vacationReducer._id; 
 	return {
 	    vacationId
 	};

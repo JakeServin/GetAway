@@ -8,9 +8,12 @@ const VacationDetails = (props) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const vacationId = searchParams.get("id");
 	const { setVacation, vacation } = props;
-	const { location, name, startDate, endDate } = vacation;
+	const { location, name, startDate, endDate, createdBy } = vacation;
+	console.log(props)
+	console.log(vacation)
 
 	const [tasks, setTasks] = useState([]);
+	const [creator, setCreator] = useState("");
 
 	// Format trip dates and create an array of days
 	let formtStartDate = new Date(startDate);
@@ -69,9 +72,14 @@ const VacationDetails = (props) => {
 				(vacation) => vacation._id == vacationId
 			);
 			setVacation(myVacation);
+			const getUser = async () => {
+				await axios.get(`/get_user?id=${createdBy}`).then(res => setCreator(res.data))
+			};
+			getUser();
 		};
 		getData();
 	}, []);
+	
 
 	useEffect(() => {
 		const getTasks = async () => {
@@ -82,8 +90,6 @@ const VacationDetails = (props) => {
 		};
 		getTasks();
 	}, [vacation]);
-
-	console.log(tasks);
 
 	return !vacation.location ? (
 		<h1>Trip not found</h1>
@@ -106,6 +112,9 @@ const VacationDetails = (props) => {
 					</h4>
 					<h4>
 						Trip Id: <span className="text-info">{vacationId}</span>
+					</h4>
+					<h4>
+							Created by: <span className="text-info">{creator}</span>
 					</h4>
 				</div>
 				<div className="col-12 col-md p-4 mt-3">
@@ -139,7 +148,8 @@ const VacationDetails = (props) => {
 };
 
 const mapStateToProps = (state) => {
-	const vacation = state;
+	console.log(state)
+	const vacation = state.vacationReducer;
 	return {
 		vacation,
 	};

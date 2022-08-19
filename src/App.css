@@ -89,9 +89,15 @@ html, body, #root, .App {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-image: url("../public/images/515766.jpeg");
+  box-shadow: inset 0 0 0 1000px rgba(0,0,0,.350); 
+  background-position: center;
+  background-size: cover;
 }
+
 .signInBox {
-  background-color: whitesmoke;
+  background-color: white;
+  border-radius: 5px;
 }
 a.noStyle:link {
     text-decoration: inherit;
