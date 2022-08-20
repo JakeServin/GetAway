@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import Axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [registerUsername, setRegisterUsername] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
+	const [registerPassword, setRegisterPassword] = useState("");
+	let navigate = useNavigate();
 
   const handleRegister = async () => {
     const newUser = {
@@ -16,7 +18,8 @@ const Register = () => {
       data: newUser,
       withCredentials: true,
       url: "http://localhost:5500/register_user"
-    }).then((res)=> console.log(res))
+	}).then((res) => console.log(res))
+	navigate('/signin')  
 
   }
 
@@ -35,7 +38,7 @@ const Register = () => {
 						value={registerUsername}
 						onChange={(e) => setRegisterUsername(e.target.value)}
 					/>
-					<label for="floatingInput">Username</label>
+					<label htmlFor="floatingInput">Username</label>
 				</div>
 				<div className="form-floating mb-3">
 					<input
@@ -46,7 +49,7 @@ const Register = () => {
 						value={registerPassword}
 						onChange={(e) => setRegisterPassword(e.target.value)}
 					/>
-					<label for="floatingPassword">Password</label>
+					<label htmlFor="floatingPassword">Password</label>
 				</div>
 				<div className="mb-3">
 					<a

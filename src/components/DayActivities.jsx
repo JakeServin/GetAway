@@ -5,9 +5,10 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import {AiOutlineDelete} from 'react-icons/ai'
 
-const DayActivities = ({ day, vacationId, tasks }) => {
+const DayActivities = ({ day, vacationId, tasks, creator }) => {
   const [inputText, setInputText] = useState("");
   const [myTasks, setMyTasks] = useState([]);
+  console.log(myTasks)
 
   // Convert date to date object
   var months = [
@@ -39,18 +40,19 @@ const DayActivities = ({ day, vacationId, tasks }) => {
 		day: days[day.date.getDay()],
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log("test")
     if (inputText.length < 1) return
     // Set up task object
     const newTask = {
       name: inputText,
       dayIndex: day.dayIndex,
-      tripId: vacationId
+	    tripId: vacationId,
+	    createdBy: creator ? creator : "anon"
     }
     // Post task to database
-    axios.post('/add_task', newTask)
-    setMyTasks([...myTasks, newTask])
+    const data = await axios.post('/add_task', newTask).then(res => res.data)
+	  setMyTasks([...myTasks, data])
     // Clear input field
     setInputText('');
   }
@@ -68,9 +70,9 @@ const DayActivities = ({ day, vacationId, tasks }) => {
 
   return (
 		<div className="my-3 mx-3">
-			<p style={{marginBottom: 0}}>
+			<p style={{ marginBottom: 0 }}>
 				<a
-					class="btn btn-primary col-12"
+					className="btn btn-primary col-12"
 					data-bs-toggle={`collapse`}
 					href={`#collapse${day.dayIndex}`}
 					role="button"
@@ -80,36 +82,43 @@ const DayActivities = ({ day, vacationId, tasks }) => {
 					{dayObj.day}, {dayObj.month} {dayObj.date}
 				</a>
 			</p>
-			<div class="collapse multi-collapse" id={`collapse${day.dayIndex}`}>
-				<div class="card card-body">
+			<div className="collapse multi-collapse" id={`collapse${day.dayIndex}`}>
+				<div className="card card-body">
 					{myTasks.length < 1 ? (
 						<span className="text-secondary">
 							Nothing planned yet!
 						</span>
 					) : (
 						myTasks.map((task, i) => (
-							<div className="d-flex justify-content-between col-12">
-								<li key={i}>{task.name}</li>
-                <a role="button"
-                  onClick={()=> handleDelete(task._id)}
-                >
-									<AiOutlineDelete
-									/>
-								</a>
+							<div className="d-flex justify-content-between col-12 my-2 px-2">
+								<li className='me-5' key={i}>{task.name}</li>
+								<span className="d-flex align-items-center justify-content-end">
+									<span className="me-3">
+										added by {task.createdBy}
+									</span>
+									<a
+										role="button"
+										onClick={() => handleDelete(task._id)}
+									>
+										<span className='text-danger'>
+											<AiOutlineDelete />
+										</span>
+									</a>
+								</span>
 							</div>
 						))
 					)}
 				</div>
-				<div class="input-group mb-3">
+				<div className="input-group mb-3">
 					<input
 						type="text"
-						class="form-control form-control-custom"
+						className="form-control form-control-custom"
 						placeholder="Add something exciting!"
 						value={inputText}
 						onChange={(e) => setInputText(e.target.value)}
 					/>
 					<button
-						class="btn btn-outline-secondary"
+						className="btn btn-outline-secondary"
 						type="button"
 						onClick={handleSubmit}
 					>

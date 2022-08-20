@@ -12,7 +12,9 @@ const SignIn = (props) => {
   console.log(props);
   const { connectedUser, setUser, setLoggedIn } = props;
 
-  const handleLogin = async () => {
+	const handleLogin = async () => {
+		
+	  
     const user = {
       username: loginUsername,
       password: loginPassword
@@ -21,21 +23,18 @@ const SignIn = (props) => {
 			method: "POST",
 			data: user,
 			withCredentials: true,
-			url: "http://localhost:5500/login_user",
+			url: "/login_user",
     }).then((res) => res.data);
-    console.log(typeof(signedIn))
+		console.log(typeof (signedIn))
     if (typeof (signedIn) === 'object') {
 		setUser(signedIn);
 		setLoggedIn();
-      navigate('/')
+      	navigate('/')
     } else {
       console.log("DONT REDIRECT")
     }
   }
 	
-  const getUser = async () => {
-    axios.get('/current_user');
-  }
 
 	return (
 		<div className="signInWrapper">
@@ -74,9 +73,9 @@ const SignIn = (props) => {
 				<div className="text-center pt-1">
 					<p>
 						New user?{" "}
-						<Link className="noStyle" to="/register">
+						<a className="noStyle" href="/register">
 							<span className="textThird">Create an account</span>
-						</Link>{" "}
+						</a>{" "}
 						here.
 					</p>
 				</div>

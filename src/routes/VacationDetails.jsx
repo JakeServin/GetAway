@@ -7,11 +7,9 @@ import DayActivities from "../components/DayActivities";
 const VacationDetails = (props) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const vacationId = searchParams.get("id");
-	const { setVacation, vacation } = props;
-	const { location, name, startDate, endDate, createdBy } = vacation;
-	console.log(props)
-	console.log(vacation)
-
+	const { setVacation, vacation, currentUser } = props;
+	const { location, name, startDate, endDate, createdBy,  } = vacation;
+	
 	const [tasks, setTasks] = useState([]);
 	const [creator, setCreator] = useState("");
 
@@ -72,13 +70,18 @@ const VacationDetails = (props) => {
 				(vacation) => vacation._id == vacationId
 			);
 			setVacation(myVacation);
-			const getUser = async () => {
-				await axios.get(`/get_user?id=${createdBy}`).then(res => setCreator(res.data))
-			};
-			getUser();
+			
 		};
 		getData();
 	}, []);
+	useEffect(() => {
+		const getUser = async () => {
+			await axios
+				.get(`/get_user?id=${createdBy}`)
+				.then((res) => setCreator(res.data));
+		};
+		getUser();
+	}, [createdBy]);
 	
 
 	useEffect(() => {
@@ -97,7 +100,7 @@ const VacationDetails = (props) => {
 			
 		<div className="container-fluid detailsWrapper">
 			<div className="row d-flex align-items-center">
-				<div className="p-5 col-12 col-md-6">
+				<div className="p-5 pb-0 pb-sm-5 col-12 col-md-6">
 					<h1>
 						Let's get ready for{" "}
 						<span className="textThird">{name}</span>
@@ -136,7 +139,9 @@ const VacationDetails = (props) => {
 								day={day}
 								tasks={tasks.filter(
 									(task) => task.dayIndex == day.dayIndex
-								)}
+								)
+								}
+								creator={currentUser.userName}
 							/>
 						);
 					})}
@@ -150,8 +155,10 @@ const VacationDetails = (props) => {
 const mapStateToProps = (state) => {
 	console.log(state)
 	const vacation = state.vacationReducer;
+	const currentUser = state.userReducer;
 	return {
 		vacation,
+		currentUser
 	};
 };
 

@@ -57,6 +57,16 @@ const Navbar = (props) => {
 								Home
 							</Link>
 						</li>
+						{loggedIn ? (
+							<li className="nav-item">
+								<Link
+									className="nav-link"
+									to="/trips"
+								>
+									My Trips
+								</Link>
+							</li>
+						) : null}
 						<li className="nav-item">
 							<Link className="nav-link" to="/newvacation">
 								New Trip
@@ -68,7 +78,11 @@ const Navbar = (props) => {
 									Sign In/Register
 								</Link>
 							) : (
-								<Link className="nav-link" to="/" onClick={handleSignout}>
+								<Link
+									className="nav-link"
+									to="/"
+									onClick={handleSignout}
+								>
 									Sign Out
 								</Link>
 							)}

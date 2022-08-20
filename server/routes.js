@@ -90,6 +90,16 @@ app.get("/vacations", async (request, response) => {
 	}
 });
 
+app.get("/get_vacation", async (req, res) => {
+	const vacations = await vacationModel.find({ createdBy: req.query.id });
+
+	try {
+		res.send(vacations);
+	} catch (error) {
+		res.status(500).send(error);
+	}
+});
+
 // Task routes
 app.post("/add_task", async (request, response) => {
 	const task = new taskModel(request.body);

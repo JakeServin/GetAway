@@ -81,7 +81,7 @@ html, body, #root, .App {
   border-bottom: 0 !important;
   border-bottom-left-radius: 0!important;
   border-bottom-right-radius: 0!important;
-
+  overflow-x: scroll;
 }
 
 .signInWrapper {
@@ -99,12 +99,21 @@ html, body, #root, .App {
   background-color: white;
   border-radius: 5px;
 }
-a.noStyle:link {
+
+.mytripsWrapper {
+  min-height: stretch;
+}
+.tripWrapper {
+  border: 1.5px solid var(--color-third);
+  border-radius: 5px;
+}
+
+.noStyle:link {
     text-decoration: inherit;
     color: inherit;
 }
 
-a.noStyle:visited {
+.noStyle:visited {
     text-decoration: inherit;
     color: inherit;
 }
