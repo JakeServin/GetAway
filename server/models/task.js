@@ -12,6 +12,10 @@ const TaskSchema = new mongoose.Schema({
 	tripId: {
 		type: String,
 		required: true
+	},
+	createdBy: {
+		type: String,
+		required: true
 	}
 });
 

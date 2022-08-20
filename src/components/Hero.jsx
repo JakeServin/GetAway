@@ -5,10 +5,10 @@ import "../App.css"
 const Hero = () => {
   return (
 		<div className="hero ">
-			<h2 className="pb-2">Plan your perfect getaway</h2>
+			<h2 className="pb-2">Plan the perfect vacation</h2>
 			<div>
-				<Link to="/newvacation">
-                  <a  className="btn btn-primary">Start Planning</a>
+				<Link to="/newvacation" className="btn btn-primary">
+					Start Planning
 				</Link>
 			</div>
 		</div>

@@ -7,10 +7,11 @@ import DayActivities from "../components/DayActivities";
 const VacationDetails = (props) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const vacationId = searchParams.get("id");
-	const { setVacation, vacation } = props;
-	const { location, name, startDate, endDate } = vacation;
-
+	const { setVacation, vacation, currentUser } = props;
+	const { location, name, startDate, endDate, createdBy,  } = vacation;
+	
 	const [tasks, setTasks] = useState([]);
+	const [creator, setCreator] = useState("");
 
 	// Format trip dates and create an array of days
 	let formtStartDate = new Date(startDate);
@@ -69,9 +70,19 @@ const VacationDetails = (props) => {
 				(vacation) => vacation._id == vacationId
 			);
 			setVacation(myVacation);
+			
 		};
 		getData();
 	}, []);
+	useEffect(() => {
+		const getUser = async () => {
+			await axios
+				.get(`/get_user?id=${createdBy}`)
+				.then((res) => setCreator(res.data));
+		};
+		getUser();
+	}, [createdBy]);
+	
 
 	useEffect(() => {
 		const getTasks = async () => {
@@ -83,14 +94,13 @@ const VacationDetails = (props) => {
 		getTasks();
 	}, [vacation]);
 
-	console.log(tasks);
-
 	return !vacation.location ? (
 		<h1>Trip not found</h1>
 	) : (
+			
 		<div className="container-fluid detailsWrapper">
 			<div className="row d-flex align-items-center">
-				<div className="p-5 col-12 col-md-6">
+				<div className="p-5 pb-0 pb-sm-5 col-12 col-md-6">
 					<h1>
 						Let's get ready for{" "}
 						<span className="textThird">{name}</span>
@@ -105,6 +115,9 @@ const VacationDetails = (props) => {
 					</h4>
 					<h4>
 						Trip Id: <span className="text-info">{vacationId}</span>
+					</h4>
+					<h4>
+							Created by: <span className="text-info">{creator}</span>
 					</h4>
 				</div>
 				<div className="col-12 col-md p-4 mt-3">
@@ -126,20 +139,26 @@ const VacationDetails = (props) => {
 								day={day}
 								tasks={tasks.filter(
 									(task) => task.dayIndex == day.dayIndex
-								)}
+								)
+								}
+								creator={currentUser.userName}
 							/>
 						);
 					})}
 				</div>
 			</div>
 		</div>
+		
 	);
 };
 
 const mapStateToProps = (state) => {
-	const vacation = state;
+	console.log(state)
+	const vacation = state.vacationReducer;
+	const currentUser = state.userReducer;
 	return {
 		vacation,
+		currentUser
 	};
 };
 

@@ -4,13 +4,16 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
-const NewVacation = () => {
+const NewVacation = (props) => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [vacationName, setVacationName] = useState('');
   const [destination, setDestination] = useState('');
-  const navigate = useNavigate();
+	const navigate = useNavigate();
+  const { user } = props
+  console.log(user)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,18 +24,19 @@ const NewVacation = () => {
     
     const newVacation = {
       name: vacationName,
-      createdBy: "62f7c3349fd3d3fc00702f29",
+      createdBy: user._id,
       startDate: startDate,
       endDate: endDate,
       location: destination
     };
-    const id = await axios.post("/add_vacation", newVacation)
+    const id = await axios
+		.post("http://localhost:5500/add_vacation", newVacation)
 		.then(function (response) {
-      console.log(response.data);
-      return response.data._id;
+			console.log(response.data);
+			return response.data._id;
 		})
 		.catch(function (error) {
-      console.log(error);
+			console.log(error);
 		});
 	  if (!id) {
 			return
@@ -53,25 +57,29 @@ const NewVacation = () => {
 					</div>
 					<div className=" col-9 col-sm ">
 						<form>
-							<div class="form-floating mb-3">
+							<div className="form-floating mb-3">
 								<input
 									value={vacationName}
-									class="form-control"
+									className="form-control"
+									placeholder="Trip Name"
 									onChange={(e) =>
 										setVacationName(e.target.value)
 									}
 								/>
-								<label for="floatingInput">Vacation Name</label>
+								<label htmlFor="floatingInput">
+									Vacation Name
+								</label>
 							</div>
-							<div class="form-floating mb-3">
+							<div className="form-floating mb-3">
 								<input
 									value={destination}
-									class="form-control"
+									className="form-control"
+									placeholder="Destination"
 									onChange={(e) =>
 										setDestination(e.target.value)
 									}
 								/>
-								<label for="floatingPassword">
+								<label htmlFor="floatingPassword">
 									Destination
 								</label>
 							</div>
@@ -79,7 +87,7 @@ const NewVacation = () => {
 								<div className="me-2 text-white">Start: </div>
 								<ReactDatePicker
 									selected={startDate}
-									minDate={startDate}
+									minDate={new Date()}
 									onChange={(date) => setStartDate(date)}
 								/>
 							</div>
@@ -91,13 +99,12 @@ const NewVacation = () => {
 									onChange={(date) => setEndDate(date)}
 								/>
 							</div>
-							<Link to="vacationdetails">
-								<a
-									className="btn btn-primary"
-									onClick={handleSubmit}
-								>
-									Let's Go
-								</a>
+							<Link
+								to="vacationdetails"
+								className="btn btn-primary"
+								onClick={handleSubmit}
+							>
+								Let's Go
 							</Link>
 						</form>
 					</div>
@@ -107,4 +114,12 @@ const NewVacation = () => {
   );
 }
 
-export default NewVacation
+const mapStateToProps = (state) => {
+	const user = state.userReducer;
+	return {
+		user,
+	};
+};
+
+
+export default connect(mapStateToProps, null)(NewVacation);
