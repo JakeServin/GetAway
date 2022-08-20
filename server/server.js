@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser')
 const bcrypt = require('bcryptjs')
 const session = require('express-session')
 const Router = require('./routes');
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
 
 const app = express();
 
