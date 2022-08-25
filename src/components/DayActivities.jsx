@@ -8,8 +8,6 @@ import {AiOutlineDelete} from 'react-icons/ai'
 const DayActivities = ({ day, vacationId, tasks, creator }) => {
   const [inputText, setInputText] = useState("");
   const [myTasks, setMyTasks] = useState([]);
-  console.log(myTasks)
-
   // Convert date to date object
   var months = [
 		"January",

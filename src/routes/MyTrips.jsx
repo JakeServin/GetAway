@@ -20,7 +20,7 @@ const MyTrips = (props) => {
     <div className='mytripsWrapper container'>
       <h3 className='p-3'>Your Trips</h3>
       <div className='d-flex flex-column align-items-center'>
-        {trips.length > 1 ? (trips.map((trip) => <Trip tripInfo={trip} />)) : <h4>No trips planned yet...</h4>}
+        {trips.length > 0 ? (trips.map((trip) => <Trip tripInfo={trip} />)) : <h4>No trips planned yet...</h4>}
       </div>
     </div>
   )

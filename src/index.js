@@ -9,7 +9,6 @@ import store from './store';
 import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-console.log(store.getState().loginReducer);
 root.render(
 	<Provider store={store}>
 		<App/>

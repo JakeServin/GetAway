@@ -24,11 +24,9 @@ app.post("/login_user", (req, res, next) => {
 });
 
 app.post('/register_user', (req, res) => {
-	console.log(req.body.username)
 	userModel.findOne({ userName: req.body.username }, async (err, doc) => {
 		if (err) throw err
 		if (doc) res.send("User Already Exists");
-		console.log(doc)
 		if (!doc) {
 			const hashedPassword = await bcrypt.hash(req.body.password, 10)
 			const newUser = new userModel({
@@ -42,10 +40,7 @@ app.post('/register_user', (req, res) => {
 })
 
 app.get("/get_user", async (req, res) => {
-
-	console.log(req.query.id)
 	const user = await userModel.findOne({_id: ObjectId(req.query.id)});
-
 	try {
 		res.send(user.userName);
 	} catch (error) {
@@ -54,7 +49,6 @@ app.get("/get_user", async (req, res) => {
 });
 
 app.get("/current_user", (req, res) => {
-	console.log(req.user)
 	res.send(req.user);
 });
 
