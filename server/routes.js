@@ -6,7 +6,11 @@ const bcrypt = require('bcryptjs');
 const passport = require("passport");
 const app = express();
 const ObjectId = require('mongodb').ObjectId
+
+
 // User routes
+
+// Logs in user
 app.post("/login_user", (req, res, next) => {
 	passport.authenticate(
 		"local",
@@ -23,6 +27,7 @@ app.post("/login_user", (req, res, next) => {
 	)(req, res, next);
 });
 
+//Registers user
 app.post('/register_user', (req, res) => {
 	userModel.findOne({ userName: req.body.username }, async (err, doc) => {
 		if (err) throw err
@@ -39,6 +44,7 @@ app.post('/register_user', (req, res) => {
 	})
 })
 
+// Get user by ID
 app.get("/get_user", async (req, res) => {
 	const user = await userModel.findOne({_id: ObjectId(req.query.id)});
 	try {
@@ -48,11 +54,12 @@ app.get("/get_user", async (req, res) => {
 	}
 });
 
+// Get currently logged in user
 app.get("/current_user", (req, res) => {
 	res.send(req.user);
 });
 
-
+// Logout currently logged in user
 app.get("/logout", (req, res) => {
 	req.logout(function (err) {
 		if (err) {
@@ -62,7 +69,9 @@ app.get("/logout", (req, res) => {
 	});
 })
 
-// Vacation routes
+// Vacation routes --------------------------------
+
+// Add vacation to database
 app.post("/add_vacation", async (request, response) => {
 	const vacation = new vacationModel(request.body);
 
@@ -74,6 +83,7 @@ app.post("/add_vacation", async (request, response) => {
 	}
 });
 
+// Get all vacations
 app.get("/vacations", async (request, response) => {
 	const vacations = await vacationModel.find({});
 
@@ -84,6 +94,7 @@ app.get("/vacations", async (request, response) => {
 	}
 });
 
+// Get vacatation by user ID
 app.get("/get_vacation", async (req, res) => {
 	const vacations = await vacationModel.find({ createdBy: req.query.id });
 
@@ -94,7 +105,9 @@ app.get("/get_vacation", async (req, res) => {
 	}
 });
 
-// Task routes
+// Task routes ------------------------------
+
+// Adds task to database
 app.post("/add_task", async (request, response) => {
 	const task = new taskModel(request.body);
 
@@ -106,6 +119,7 @@ app.post("/add_task", async (request, response) => {
 	}
 });
 
+// Get tasks by trip ID
 app.get("/tasks", async (request, response) => {
 	if (!request.query.id) return
 	const tasks = await taskModel.find({ tripId: `${request.query.id}` });
@@ -116,6 +130,8 @@ app.get("/tasks", async (request, response) => {
 		response.status(500).send(error);
 	}
 });
+
+// Delete a specific task
 app.get("/delete_task", async (request, response) => {
 	const tasks = await taskModel.remove({_id: `${request.query.id}`})
 
