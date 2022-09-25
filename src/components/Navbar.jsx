@@ -10,9 +10,8 @@ const Navbar = (props) => {
   useEffect(() => {
     const getUser = async () => {
       await axios
-			.get("/current_user")
-		  .then((res) => {
-				console.log(res.data)
+			.get("https://vacationappserver.herokuapp.com/current_user")
+			.then((res) => {
 				setUser(res.data);
 				if (!res.data._id) {
 					setLoggedOut();
