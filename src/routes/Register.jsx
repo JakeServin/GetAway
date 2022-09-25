@@ -16,7 +16,7 @@ const Register = () => {
     Axios({
 		method: "POST",
 		data: newUser,
-		withCredentials: true,
+		//withCredentials: true,
 		url: "https://vacationappserver.herokuapp.com/register_user",
 	}).then((res) => console.log(res));
 	navigate('/signin')  

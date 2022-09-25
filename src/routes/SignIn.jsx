@@ -22,7 +22,7 @@ const SignIn = (props) => {
 	  const signedIn = await Axios({
 			method: "POST",
 			data: user,
-			withCredentials: true,
+			// withCredentials: true,
 			url: "https://vacationappserver.herokuapp.com/login_user",
 		}).then((res) => res.data);
 		console.log(typeof (signedIn))
