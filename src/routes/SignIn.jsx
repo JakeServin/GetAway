@@ -23,8 +23,8 @@ const SignIn = (props) => {
 			method: "POST",
 			data: user,
 			withCredentials: true,
-			url: "/login_user",
-    }).then((res) => res.data);
+			url: "https://vacationappserver.herokuapp.com/login_user",
+		}).then((res) => res.data);
 		console.log(typeof (signedIn))
     if (typeof (signedIn) === 'object') {
 		setUser(signedIn);

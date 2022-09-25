@@ -14,11 +14,11 @@ const Register = () => {
       password: registerPassword
     }
     Axios({
-      method: "POST",
-      data: newUser,
-      withCredentials: true,
-      url: "http://localhost:5500/register_user"
-	}).then((res) => console.log(res))
+		method: "POST",
+		data: newUser,
+		withCredentials: true,
+		url: "https://vacationappserver.herokuapp.com/register_user",
+	}).then((res) => console.log(res));
 	navigate('/signin')  
 
   }
