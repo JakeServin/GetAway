@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+
 const Navbar = (props) => {
   const [formInput, setFormInput] = useState('');
   const { connectedUser, setUser, setLoggedIn, setLoggedOut, loggedIn } = props
@@ -10,7 +11,7 @@ const Navbar = (props) => {
   useEffect(() => {
     const getUser = async () => {
       await axios
-			.get("https://vacationappserver.herokuapp.com/current_user")
+			.get("/current_user")
 			.then((res) => {
 				setUser(res.data);
 				if (!res.data._id) {
@@ -22,7 +23,7 @@ const Navbar = (props) => {
 
     }
     getUser();
-  },[loggedIn])
+  },[loggedIn, setLoggedOut])
   
   // Signout if button is pressed;
   const handleSignout = async () => {
