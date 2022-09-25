@@ -28,7 +28,8 @@ const Navbar = (props) => {
   // Signout if button is pressed;
   const handleSignout = async () => {
     await axios.get("https://vacationappserver.herokuapp.com/logout");
-    setLoggedOut();
+	  setLoggedOut();
+	  setUser({});
 
   }
 
