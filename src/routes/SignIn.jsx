@@ -73,9 +73,9 @@ const SignIn = (props) => {
 				<div className="text-center pt-1">
 					<p>
 						New user?{" "}
-						<a className="noStyle" href="/register">
+						<Link className="noStyle" to="/register">
 							<span className="textThird">Create an account</span>
-						</a>{" "}
+						</Link>{" "}
 						here.
 					</p>
 				</div>
