@@ -23,7 +23,7 @@ const Navbar = (props) => {
 
     }
     getUser();
-  },[loggedIn, setLoggedOut])
+  },[connectedUser])
   
   // Signout if button is pressed;
   const handleSignout = async () => {

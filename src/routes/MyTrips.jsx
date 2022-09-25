@@ -6,7 +6,7 @@ import Trip from '../components/Trip';
 const MyTrips = (props) => {
   const [trips, setTrips] = useState([]);
   const { connectedUser } = props;
-  console.log(trips)
+  console.log(connectedUser)
   
 
   useEffect(() => {
