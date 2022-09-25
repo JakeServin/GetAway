@@ -30,7 +30,10 @@ const NewVacation = (props) => {
       location: destination
     };
     const id = await axios
-		.post("http://localhost:5500/add_vacation", newVacation)
+		.post(
+			"https://vacationappserver.herokuapp.com/add_vacation",
+			newVacation
+		)
 		.then(function (response) {
 			console.log(response.data);
 			return response.data._id;

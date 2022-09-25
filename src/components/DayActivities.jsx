@@ -49,7 +49,9 @@ const DayActivities = ({ day, vacationId, tasks, creator }) => {
 	    createdBy: creator ? creator : "anon"
     }
     // Post task to database
-    const data = await axios.post('/add_task', newTask).then(res => res.data)
+    const data = await axios
+		.post("https://vacationappserver.herokuapp.com/add_task", newTask)
+		.then((res) => res.data);
 	  setMyTasks([...myTasks, data])
     // Clear input field
     setInputText('');
@@ -57,7 +59,7 @@ const DayActivities = ({ day, vacationId, tasks, creator }) => {
 
   const handleDelete = (id) => {
     console.log(id)
-    axios.get(`/delete_task?id=${id}`)
+    axios.get(`https://vacationappserver.herokuapp.com/delete_task?id=${id}`);
     setMyTasks(myTasks.filter((task) => task._id != id));
   }
 

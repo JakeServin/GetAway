@@ -63,7 +63,7 @@ const VacationDetails = (props) => {
 	useEffect(() => {
 		const getData = async () => {
 			const vacationQuery = await axios
-				.get("/vacations")
+				.get("https://vacationappserver.herokuapp.com/vacations")
 				.then((res) => res.data);
 			let vacations = vacationQuery;
 			const myVacation = vacations.find(
@@ -77,7 +77,9 @@ const VacationDetails = (props) => {
 	useEffect(() => {
 		const getUser = async () => {
 			await axios
-				.get(`/get_user?id=${createdBy}`)
+				.get(
+					`https://vacationappserver.herokuapp.com/get_user?id=${createdBy}`
+				)
 				.then((res) => setCreator(res.data));
 		};
 		getUser();
@@ -87,7 +89,9 @@ const VacationDetails = (props) => {
 	useEffect(() => {
 		const getTasks = async () => {
 			const tasksQuery = await axios
-				.get(`/tasks?id=${vacation._id}`)
+				.get(
+					`https://vacationappserver.herokuapp.com/tasks?id=${vacation._id}`
+				)
 				.then((res) => res.data);
 			setTasks(tasksQuery);
 		};

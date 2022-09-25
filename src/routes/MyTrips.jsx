@@ -11,7 +11,11 @@ const MyTrips = (props) => {
 
   useEffect(() => {
     const getTrips = async () => {
-      await axios.get(`/get_vacation?id=${connectedUser._id}`).then(res => setTrips(res.data))
+      await axios
+			.get(
+				`https://vacationappserver.herokuapp.com/get_vacation?id=${connectedUser._id}`
+			)
+			.then((res) => setTrips(res.data));
     }
     getTrips();
   },[])

@@ -9,11 +9,16 @@ const Navbar = (props) => {
   // Check req.user to see if user is currently logged in
   useEffect(() => {
     const getUser = async () => {
-      await axios.get('/current_user').then(res => {
-        setUser(res.data);
-        if (!res.data._id) { setLoggedOut() }
-        else { setLoggedIn() }
-      })
+      await axios
+			.get("https://vacationappserver.herokuapp.com/current_user")
+			.then((res) => {
+				setUser(res.data);
+				if (!res.data._id) {
+					setLoggedOut();
+				} else {
+					setLoggedIn();
+				}
+			});
 
     }
     getUser();
@@ -21,7 +26,7 @@ const Navbar = (props) => {
   
   // Signout if button is pressed;
   const handleSignout = async () => {
-    await axios.get("/logout");
+    await axios.get("https://vacationappserver.herokuapp.com/logout");
     setLoggedOut();
 
   }
