@@ -65,9 +65,9 @@ const SignIn = (props) => {
 					<label htmlFor="floatingPassword">Password</label>
 				</div>
 				<div className="mb-3">
-					<a type="button" className="btn btn-primary col-12" onClick={handleLogin}>
+					<button type="button" className="btn btn-primary col-12" onClick={handleLogin}>
 						Sign In
-					</a>
+					</button>
 				</div>
 				<hr />
 				<div className="text-center pt-1">
